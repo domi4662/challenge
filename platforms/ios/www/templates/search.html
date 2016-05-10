@@ -1,0 +1,72 @@
+<ion-view view-title="Instagram Search">	
+    <ion-tabs class="tabs-stable tabs-icon-top">
+    	<ion-tab title="Users" icon="ion-ios-people" ng-class="{ active: isSet(1) }" on-select="setTab(1)">        
+    	</ion-tab>
+    	<ion-tab title="Hashtags" icon="ion-pound" ng-class="{ active: isSet(2) }"  on-select="setTab(2)">            	
+    	</ion-tab>    
+	</ion-tabs>   
+  	<ion-content class="has-header" overflow-scroll="true">  	  
+	    <div ng-show="isSet(1)" class="has-header" overflow-scroll="true" padding="true">     
+		    <div class="card">
+				<div class="item item-divider">
+					<i class="icon ion-social-instagram"></i>
+					Search Users
+				</div>  			
+		  		<label class="item item-input">
+				  <i class="icon ion-search placeholder-icon"></i>
+				  <input type="text" placeholder="Username Instagram" ng-model="search.user">
+				</label>		 		
+				<div class="item item-list">
+					<input type="button" class="button button-stable button-large button-block" ng-click="searchUsers()" value="Search"/>
+				</div>
+			</div>			
+			<div class="card" ng-show="search.users" ng-repeat="user in search.users">
+				<div class="item item-divider" >
+					<strong>Result {{$index+1}}:</strong>
+				</div>  
+				<div class="item item-list">
+					<img src={{user.profile_picture}} class="item item-list"/>					
+					<div class="item item-list">	
+						<strong>Username:</strong> <a href="http://www.instagram.com/{{user.username}}" target="_blank">{{user.username}}</a>
+					</div>
+					<div class="item item-list">	
+						<strong>Full name:</strong> {{user.full_name}}
+					</div>
+					<div class="item item-list">	
+						<input type="button" class="button button-stable button-large button-block" ng-click="getRecentPosts($index, user.id)" value="View Recent Posts"/>
+					</div>
+					<div ng-show="search.users[$index].images">	
+						<div ng-repeat="post in search.users[$index].images" style="float: left;">
+							<img src={{post.thumbnail.url}} />
+						</div>
+					</div>
+				</div>
+			</div>			
+		</div>
+		<div ng-show="isSet(2)" class="has-header" overflow-scroll="true" padding="true">
+			 <div class="card">
+				<div class="item item-divider">
+					<i class="icon ion-social-instagram"></i>
+					Search #Hashtags
+				</div>  			
+		  		<label class="item item-input">
+				  <i class="icon ion-search placeholder-icon"></i>
+				  <input type="text" placeholder="Instagram #hashtag" ng-model="search.hashtag">
+				</label>		 		
+				<div class="item item-list">
+					<input type="button" class="button button-stable button-large button-block" ng-click="searchHashtags()" value="Search"/>
+				</div>
+			</div>			
+			<div class="card" ng-show="search.hashtags" ng-repeat="hashtag in search.hashtags">
+				<div class="item item-divider">
+					<strong>Result {{$index+1}}:</strong>
+				</div>  		
+				<div class="item item-list">	
+					<div class="item item-list"><strong>From: {{hashtag.caption.from.full_name}}</strong></div>
+					<div class="item item-list"><img src={{hashtag.images.thumbnail.url}} /></div>
+					<div class="item item-list"><strong>Tags: </strong><a href="{{hashtag.link}}" targer="_blank">{{hashtag.caption.text}}</a></div>
+				</div>		
+			</div>
+		</div>
+  </ion-content>
+</ion-view>

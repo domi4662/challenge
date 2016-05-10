@@ -1,0 +1,11 @@
+{
+  "name": "myApp",
+  "email": "",
+  "app_id": "9da6c7c3",
+  "proxies": [
+    {
+      "path": "/v1",
+      "proxyUrl": "https://api.instagram.com/v1"
+    }
+  ]
+}
